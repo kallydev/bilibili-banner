@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Bilibili Banner</title>
+    <style>
+        body {
+            margin: 0;
+        }
+
+        .banner {
+            min-height: 155px;
+            height: 9.375vw;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .banner>.layout {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .banner>.layout>img {
+            display: block;
+            width: 110%;
+            height: 100%;
+            object-fit: cover;
+            transform: translatex(var(--offset));
+            filter: blur(var(--blur));
+        }
+    </style>
+</head>
+
+<body>
+    <div class="banner">
+        <div class="layout">
+            <img src="/images/8e084d67aa18ed9c42dce043e06e16b79cbb50ef.png" alt="" />
+        </div>
+        <div class="layout">
+            <img src="/images/082e39ef757826401ef82da818310d42e05bc2de.png" alt="" />
+        </div>
+        <div class="layout">
+            <img src="/images/dbd5c17c4315714de9e4ee119694d2e9efaf9639.png" alt="" />
+        </div>
+        <div class="layout">
+            <img src="/images/cd9be0a2716adbae85fd899259381c4b2c2893c7.png" alt="" />
+        </div>
+        <div class="layout">
+            <img src="/images/88537437a7916ecde847fa46652b44fbd3cbbb06.png" alt="" />
+        </div>
+        <div class="layout">
+            <img src="/images/37d9a93baa55870506a6f3e6308e7a0c386b97c7.png" alt="" />
+        </div>
+    </div>
+    <script>
+        const images = document.querySelectorAll('.banner > .layout > img');
+        document.querySelector('.banner').addEventListener('mousemove', (event) => {
+            let percentage = event.clientX / window.outerWidth;
+            let offset = 10 * percentage;
+            let blur = 20;
+            for (let [index, image] of images.entries()) {
+                offset *= 1.3;
+                let blurValue = (Math.pow((index / images.length - percentage), 2) * blur);
+                image.style.setProperty('--offset', `${offset}px`);
+                image.style.setProperty('--blur', `${blurValue}px`);
+            }
+        });
+        document.querySelector('.banner').addEventListener('mouseout', (event) => {
+            for (let [index, image] of images.entries()) {
+                image.style.setProperty('--offset', `${offset}px`);
+                image.style.setProperty('--blur', `${blurValue}px`);
+            }
+        });
+    </script>
+</body>
+
+</html>
